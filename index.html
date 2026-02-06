@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>360 Image Gallery</title>
+
+  <!-- CDN A-Frame -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <script>
+    AFRAME.registerComponent('change-scene', {
+      schema: { target: { type: 'string' } },
+      init: function () {
+        this.el.addEventListener('click', () => {
+          document.querySelector('#sky')
+            .setAttribute('src', this.data.target);
+        });
+      }
+    });
+  </script>
+</head>
+
+<body style="margin:0; overflow:hidden;">
+
+<a-scene>
+  <a-assets>
+    <img id="img1" src="img1.jpg">
+    <img id="img2" src="img2.jpg">
+    <img id="img3" src="img3.jpg">
+  </a-assets>
+
+  <a-camera look-controls></a-camera>
+
+  <a-entity cursor="rayOrigin: mouse"
+            raycaster="objects: .clickable"></a-entity>
+
+  <a-sky id="sky" src="#img1" rotation="0 -90 0"></a-sky>
+
+  <a-circle class="clickable" position="-2 1.5 -3"
+            radius="0.3" color="red"
+            change-scene="target: #img1"></a-circle>
+
+  <a-circle class="clickable" position="0 1.5 -3"
+            radius="0.3" color="blue"
+            change-scene="target: #img2"></a-circle>
+
+  <a-circle class="clickable" position="2 1.5 -3"
+            radius="0.3" color="green"
+            change-scene="target: #img3"></a-circle>
+
+</a-scene>
+
+</body>
+</html>
